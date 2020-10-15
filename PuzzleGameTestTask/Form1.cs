@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace PuzzleGameTestTask
 {
@@ -17,9 +18,171 @@ namespace PuzzleGameTestTask
 			InitializeComponent();
 		}
 
+		OpenFileDialog openFileDialog = null;
+		Image image;
+		PictureBox pictureboxPuzzle = null;
 		private void Form1_Load(object sender, EventArgs e)
 		{
 
+		}
+
+		private void buttonImageBrowse_Click(object sender, EventArgs e)
+		{
+			if(openFileDialog == null)
+			{
+				openFileDialog = new OpenFileDialog();
+			}
+			if(openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				textBoxImagePath.Text = openFileDialog.FileName;
+				image = CreateBitmapImage(Image.FromFile(openFileDialog.FileName));
+				if(pictureboxPuzzle == null)
+				{
+					pictureboxPuzzle = new PictureBox();
+					pictureboxPuzzle.Height = groupBoxPuzzle.Height;
+					pictureboxPuzzle.Width = groupBoxPuzzle.Width;
+					groupBoxPuzzle.Controls.Add(pictureboxPuzzle);
+				}
+				pictureboxPuzzle.Image = image;
+				buttonControl.Enabled = true;
+				buttonCheck.Enabled = true;
+			}
+		}
+		PictureBox[] picBoxes = null;
+		Image[] images = null;
+		int countOfFragments;
+		private void buttonControl_Click(object sender, EventArgs e)
+		{
+			int numRow = Convert.ToInt32(textBoxRows.Text);
+			int numCol = Convert.ToInt32(textBoxColumns.Text);
+			countOfFragments = numRow * numCol;
+			if (pictureboxPuzzle != null)
+			{
+				groupBoxPuzzle.Controls.Remove(pictureboxPuzzle);
+				pictureboxPuzzle.Dispose();
+				pictureboxPuzzle = null;
+			}
+			if (picBoxes == null)
+			{
+				images = new Image[countOfFragments];
+				picBoxes = new PictureBox[countOfFragments];
+			}
+			int unitX = groupBoxPuzzle.Width / numRow;
+			int unitY = groupBoxPuzzle.Height / numCol;
+			int[] indice = new int[countOfFragments];
+			for(int i =0; i< countOfFragments; i++)
+			{
+				indice[i] = i;
+				if (picBoxes[i] == null)
+				{
+					picBoxes[i] = new MysteryBox();
+					picBoxes[i].Click += new EventHandler(OnPuzzleClick);
+					picBoxes[i].BorderStyle = BorderStyle.Fixed3D;
+				}
+				picBoxes[i].SizeMode = PictureBoxSizeMode.CenterImage;
+				picBoxes[i].Width = unitX;
+				picBoxes[i].Height = unitY;
+				((MysteryBox)picBoxes[i]).Index = i;
+
+				CreateBitmapImage(image, images, i, numRow, numCol, unitX, unitY);
+
+				picBoxes[i].Location = new Point(unitX * (i % numCol), unitY * (i / numCol));
+
+				if(!groupBoxPuzzle.Controls.Contains(picBoxes[i]))
+				{
+					groupBoxPuzzle.Controls.Add(picBoxes[i]);
+				}
+			}
+			Shuffle(ref indice);
+			for(int i=0; i < countOfFragments; i++)
+			{
+				picBoxes[i].Image = images[indice[i]];
+				((MysteryBox)picBoxes[i]).ImageIndex = indice[i];
+			}
+		}
+
+		MysteryBox firstBox = null;
+		MysteryBox secondBox = null;
+		public void OnPuzzleClick(object sender, EventArgs e)
+		{
+			if(firstBox == null)
+			{
+				firstBox = (MysteryBox)sender;
+				firstBox.BorderStyle = BorderStyle.FixedSingle;
+			}
+			else if(secondBox == null)
+			{
+				secondBox = (MysteryBox)sender;
+				firstBox.BorderStyle = BorderStyle.Fixed3D;
+				secondBox.BorderStyle = BorderStyle.FixedSingle;
+				SwitchImage(firstBox, secondBox);
+				firstBox = null;
+				secondBox = null;
+			}
+		}
+
+		private Bitmap CreateBitmapImage(Image image)
+		{
+			Bitmap bmpImage = new Bitmap(groupBoxPuzzle.Width, groupBoxPuzzle.Height);
+			Graphics graphics = Graphics.FromImage(bmpImage);
+			graphics.Clear(Color.White);
+			graphics.DrawImage(image, new Rectangle(0, 0, groupBoxPuzzle.Width, groupBoxPuzzle.Height));
+			graphics.Flush();
+			return bmpImage;
+		}
+
+		private void CreateBitmapImage(Image image, Image[] images, int index, int numRow, int numCol, int unitX, int unitY)
+		{
+			images[index] = new Bitmap(unitX, unitY);
+			Graphics graphics = Graphics.FromImage(images[index]);
+			graphics.Clear(Color.White);
+			graphics.DrawImage(image,
+				new Rectangle(0, 0, unitX, unitY),
+				new Rectangle(unitX * (index % numCol), unitY * (index / numCol), unitX, unitY),
+				GraphicsUnit.Pixel);
+			graphics.Flush();
+		}
+
+		private void Shuffle(ref int[] array)
+		{
+			Random rng = new Random();
+			int n = array.Length;
+			while (n > 1)
+			{
+				int k = rng.Next(n);
+				n--;
+				int temp = array[n];
+				array[n] = array[k];
+				array[k] = temp;
+			}
+		}
+
+		private void SwitchImage(MysteryBox box1, MysteryBox box2)
+		{
+			int tmp = box2.ImageIndex;
+			box2.Image = images[box1.ImageIndex];
+			box2.ImageIndex = box1.ImageIndex;
+			box1.Image = images[tmp];
+			box1.ImageIndex = tmp;
+			if(isSuccessful())
+			{
+				MessageBox.Show("Success");
+			}
+		}
+
+		private bool isSuccessful()
+		{
+			int numRow = Convert.ToInt32(textBoxRows.Text);
+			int numCol = Convert.ToInt32(textBoxColumns.Text);
+			countOfFragments = numRow * numCol;
+			for (int i=0; i< countOfFragments; i++)
+			{
+				if (((MysteryBox)picBoxes[i]).ImageIndex != ((MysteryBox)picBoxes[i]).Index)
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 	}
 }
