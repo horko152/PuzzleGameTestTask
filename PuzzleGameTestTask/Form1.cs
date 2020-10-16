@@ -18,9 +18,18 @@ namespace PuzzleGameTestTask
 			InitializeComponent();
 		}
 
+		#region Global variables
 		OpenFileDialog openFileDialog = null;
 		Image image;
 		PictureBox pictureboxPuzzle = null;
+		PictureBox[] picBoxes = null;
+		Image[] images = null;
+		int countOfFragments;
+		MysteryBox firstBox = null;
+		MysteryBox secondBox = null;
+		#endregion
+
+		#region Events
 		private void Form1_Load(object sender, EventArgs e)
 		{
 
@@ -30,10 +39,13 @@ namespace PuzzleGameTestTask
 		{
 			if(openFileDialog == null)
 			{
-				openFileDialog = new OpenFileDialog();
+				openFileDialog = new OpenFileDialog();  
 			}
 			if(openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
+				int numRow = Convert.ToInt32(textBoxRows.Text);
+				int numCol = Convert.ToInt32(textBoxColumns.Text);
+				countOfFragments = numRow * numCol;
 				textBoxImagePath.Text = openFileDialog.FileName;
 				image = CreateBitmapImage(Image.FromFile(openFileDialog.FileName));
 				if(pictureboxPuzzle == null)
@@ -43,14 +55,20 @@ namespace PuzzleGameTestTask
 					pictureboxPuzzle.Width = groupBoxPuzzle.Width;
 					groupBoxPuzzle.Controls.Add(pictureboxPuzzle);
 				}
+				if (picBoxes != null)
+				{
+					for (int i = 0; i < countOfFragments; i++)
+					{
+						groupBoxPuzzle.Controls.Remove(picBoxes[i]);
+					}
+				}
 				pictureboxPuzzle.Image = image;
+				textBoxRows.Enabled = true;
+				textBoxColumns.Enabled = true;
 				buttonControl.Enabled = true;
 				buttonCheck.Enabled = true;
 			}
 		}
-		PictureBox[] picBoxes = null;
-		Image[] images = null;
-		int countOfFragments;
 		private void buttonControl_Click(object sender, EventArgs e)
 		{
 			int numRow = Convert.ToInt32(textBoxRows.Text);
@@ -99,10 +117,9 @@ namespace PuzzleGameTestTask
 				picBoxes[i].Image = images[indice[i]];
 				((MysteryBox)picBoxes[i]).ImageIndex = indice[i];
 			}
+			textBoxRows.Enabled = false;
+			textBoxColumns.Enabled = false;
 		}
-
-		MysteryBox firstBox = null;
-		MysteryBox secondBox = null;
 		public void OnPuzzleClick(object sender, EventArgs e)
 		{
 			if(firstBox == null)
@@ -120,7 +137,18 @@ namespace PuzzleGameTestTask
 				secondBox = null;
 			}
 		}
+		private void buttonViewImage_Click(object sender, EventArgs e)
+		{
 
+		}
+
+		private void buttonPuzzleAutomatic_Click(object sender, EventArgs e)
+		{
+
+		}
+		#endregion
+
+		#region Bitmap methods
 		private Bitmap CreateBitmapImage(Image image)
 		{
 			Bitmap bmpImage = new Bitmap(groupBoxPuzzle.Width, groupBoxPuzzle.Height);
@@ -142,7 +170,9 @@ namespace PuzzleGameTestTask
 				GraphicsUnit.Pixel);
 			graphics.Flush();
 		}
+		#endregion
 
+		#region Additional methods
 		private void Shuffle(ref int[] array)
 		{
 			Random rng = new Random();
@@ -184,5 +214,7 @@ namespace PuzzleGameTestTask
 			}
 			return true;
 		}
+		#endregion
+
 	}
 }

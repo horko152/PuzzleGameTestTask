@@ -39,6 +39,8 @@
 			this.labelRow = new System.Windows.Forms.Label();
 			this.buttonCheck = new System.Windows.Forms.Button();
 			this.buttonControl = new System.Windows.Forms.Button();
+			this.buttonViewImage = new System.Windows.Forms.Button();
+			this.buttonPuzzleAutomatic = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBoxControl.SuspendLayout();
 			this.SuspendLayout();
@@ -85,6 +87,8 @@
 			// 
 			// groupBoxControl
 			// 
+			this.groupBoxControl.Controls.Add(this.buttonPuzzleAutomatic);
+			this.groupBoxControl.Controls.Add(this.buttonViewImage);
 			this.groupBoxControl.Controls.Add(this.textBoxColumns);
 			this.groupBoxControl.Controls.Add(this.textBoxRows);
 			this.groupBoxControl.Controls.Add(this.label1);
@@ -137,7 +141,7 @@
 			// buttonCheck
 			// 
 			this.buttonCheck.Enabled = false;
-			this.buttonCheck.Location = new System.Drawing.Point(31, 144);
+			this.buttonCheck.Location = new System.Drawing.Point(31, 186);
 			this.buttonCheck.Name = "buttonCheck";
 			this.buttonCheck.Size = new System.Drawing.Size(75, 23);
 			this.buttonCheck.TabIndex = 1;
@@ -154,6 +158,26 @@
 			this.buttonControl.Text = "Shuffle";
 			this.buttonControl.UseVisualStyleBackColor = true;
 			this.buttonControl.Click += new System.EventHandler(this.buttonControl_Click);
+			// 
+			// buttonViewImage
+			// 
+			this.buttonViewImage.Location = new System.Drawing.Point(31, 117);
+			this.buttonViewImage.Name = "buttonViewImage";
+			this.buttonViewImage.Size = new System.Drawing.Size(75, 23);
+			this.buttonViewImage.TabIndex = 5;
+			this.buttonViewImage.Text = "Image";
+			this.buttonViewImage.UseVisualStyleBackColor = true;
+			this.buttonViewImage.Click += new System.EventHandler(this.buttonViewImage_Click);
+			// 
+			// buttonPuzzleAutomatic
+			// 
+			this.buttonPuzzleAutomatic.Location = new System.Drawing.Point(31, 232);
+			this.buttonPuzzleAutomatic.Name = "buttonPuzzleAutomatic";
+			this.buttonPuzzleAutomatic.Size = new System.Drawing.Size(75, 23);
+			this.buttonPuzzleAutomatic.TabIndex = 6;
+			this.buttonPuzzleAutomatic.Text = "Automatic";
+			this.buttonPuzzleAutomatic.UseVisualStyleBackColor = true;
+			this.buttonPuzzleAutomatic.Click += new System.EventHandler(this.buttonPuzzleAutomatic_Click);
 			// 
 			// Form1
 			// 
@@ -190,6 +214,8 @@
 		private System.Windows.Forms.TextBox textBoxRows;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label labelRow;
+		private System.Windows.Forms.Button buttonPuzzleAutomatic;
+		private System.Windows.Forms.Button buttonViewImage;
 	}
 }
 
