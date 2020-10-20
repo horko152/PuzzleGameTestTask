@@ -34,14 +34,16 @@ namespace PuzzleGameTestTask
 		#region Events
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			startLabel = new Label();
-			startLabel.Text = "Choose your image from computer";
-			startLabel.AutoSize = true;
-			startLabel.Location = new Point(418, 274);
+			startLabel = new Label
+			{
+				Text = "Choose your image from computer",
+				AutoSize = true,
+				Location = new Point(418, 274)
+			};
 			groupBoxPuzzle.Controls.Add(startLabel);
 		}
 
-		private void buttonImageBrowse_Click(object sender, EventArgs e)
+		private void ButtonImageBrowse_Click(object sender, EventArgs e)
 		{
 			if(openFileDialog == null)
 			{
@@ -56,9 +58,11 @@ namespace PuzzleGameTestTask
 				image = CreateBitmapImage(Image.FromFile(openFileDialog.FileName));
 				if(pictureboxPuzzle == null)
 				{
-					pictureboxPuzzle = new PictureBox();
-					pictureboxPuzzle.Height = groupBoxPuzzle.Height;
-					pictureboxPuzzle.Width = groupBoxPuzzle.Width;
+					pictureboxPuzzle = new PictureBox
+					{
+						Height = groupBoxPuzzle.Height,
+						Width = groupBoxPuzzle.Width
+					};
 					groupBoxPuzzle.Controls.Add(pictureboxPuzzle);
 				}
 				if (picBoxes != null)
@@ -75,7 +79,7 @@ namespace PuzzleGameTestTask
 				buttonControl.Enabled = true;
 			}
 		}
-		private void buttonControl_Click(object sender, EventArgs e)
+		private void ButtonControl_Click(object sender, EventArgs e)
 		{
 			int numRow = Convert.ToInt32(textBoxRows.Text);
 			int numCol = Convert.ToInt32(textBoxColumns.Text);
@@ -149,14 +153,16 @@ namespace PuzzleGameTestTask
 				secondBox = null;
 			}
 		}
-		private void buttonViewImage_Click(object sender, EventArgs e)
+		private void ButtonViewImage_Click(object sender, EventArgs e)
 		{
 			if (image != null)
 			{
 				Form currentImageForm = new Form();
-				PictureBox picture = new PictureBox();
-				picture.Image = CreateBitmapImage(image);
-				picture.SizeMode = PictureBoxSizeMode.AutoSize;
+				PictureBox picture = new PictureBox
+				{
+					Image = CreateBitmapImage(image),
+					SizeMode = PictureBoxSizeMode.AutoSize
+				};
 				currentImageForm.Controls.Add(picture);
 				currentImageForm.Size = new Size(groupBoxPuzzle.Width, groupBoxPuzzle.Height + 30);
 				currentImageForm.StartPosition = FormStartPosition.CenterScreen;
@@ -167,7 +173,7 @@ namespace PuzzleGameTestTask
 				MessageBox.Show("Please pick an image for puzzle");
 			}
 		}
-		private void buttonCheck_Click(object sender, EventArgs e)
+		private void ButtonCheck_Click(object sender, EventArgs e)
 		{
 			int numRow = Convert.ToInt32(textBoxRows.Text);
 			int numCol = Convert.ToInt32(textBoxColumns.Text);
@@ -181,9 +187,17 @@ namespace PuzzleGameTestTask
 			}
 		}
 
-		private void buttonPuzzleAutomatic_Click(object sender, EventArgs e)
+		private void ButtonPuzzleAutomatic_Click(object sender, EventArgs e)
 		{
-
+			int numRow = Convert.ToInt32(textBoxRows.Text);
+			int numCol = Convert.ToInt32(textBoxColumns.Text);
+			countOfFragments = numRow * numCol;
+			buttonCheck.PerformClick();
+			AutomaticMethod(numRow, numCol, countOfFragments);
+			MessageBox.Show("dsadas");
+			GC.Collect();
+			//string toDisplay = string.Join(Environment.NewLine, indexes);
+			//MessageBox.Show(toDisplay);
 		}
 		#endregion
 
@@ -214,15 +228,72 @@ namespace PuzzleGameTestTask
 		#region Additional methods
 		private void Shuffle(ref int[] array)
 		{
-			Random rng = new Random();
 			int n = array.Length;
 			while (n > 1)
 			{
-				int k = rng.Next(n);
+				int k = RandomNumber(n);
 				n--;
 				int temp = array[n];
 				array[n] = array[k];
 				array[k] = temp;
+			}
+		}
+
+		private int RandomNumber(int maxValue)
+		{
+			Random rng = new Random();
+			return rng.Next(maxValue);
+		}
+
+		private bool AutomaticMethod(int numRow, int numCol, int countOfFragments)
+		{
+			bool[] indexes = new bool[countOfFragments];
+			int rightPuzzle = 0;
+			int firstBox;
+			int secondBox;
+			for (int i = 0; i < countOfFragments; i++)
+			{
+				if (picBoxes[i].BorderStyle == BorderStyle.None)
+				{
+					indexes[i] = true;
+				}
+				else
+				{
+					indexes[i] = false;
+				}
+			}
+			for (int i = 0; i < countOfFragments; i++)
+			{
+				firstBox = RandomNumber(countOfFragments);
+				secondBox = RandomNumber(countOfFragments);
+				if (firstBox != secondBox && indexes[firstBox] == false && indexes[secondBox] == false)
+				{
+					SwitchImage((MysteryBox)picBoxes[firstBox], (MysteryBox)picBoxes[secondBox]);
+					buttonCheck.PerformClick();
+					if (picBoxes[firstBox].BorderStyle == BorderStyle.None)
+					{
+						indexes[firstBox] = true;
+					}
+					if (picBoxes[secondBox].BorderStyle == BorderStyle.None)
+					{
+						indexes[secondBox] = true;
+					}
+				}
+			}
+			for (int i = 0; i < countOfFragments; i++)
+			{
+				if (indexes[i] == true)
+				{
+					rightPuzzle++;
+				}
+			}
+			if(rightPuzzle == countOfFragments)
+			{
+				return true;
+			}
+			else
+			{
+				return AutomaticMethod(numRow,numCol,countOfFragments);
 			}
 		}
 
@@ -233,14 +304,15 @@ namespace PuzzleGameTestTask
 			box2.ImageIndex = box1.ImageIndex;
 			box1.Image = images[tmp];
 			box1.ImageIndex = tmp;
-			if(isSuccessful())
+			if(IsSuccessful())
 			{
 				buttonCheck.PerformClick();
 				MessageBox.Show("Success");
+				return;
 			}
 		}
 
-		private bool isSuccessful()
+		private bool IsSuccessful()
 		{
 			int numRow = Convert.ToInt32(textBoxRows.Text);
 			int numCol = Convert.ToInt32(textBoxColumns.Text);

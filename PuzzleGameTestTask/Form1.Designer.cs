@@ -64,7 +64,7 @@
 			this.buttonImageBrowse.TabIndex = 1;
 			this.buttonImageBrowse.Text = "Choose Image";
 			this.buttonImageBrowse.UseVisualStyleBackColor = true;
-			this.buttonImageBrowse.Click += new System.EventHandler(this.buttonImageBrowse_Click);
+			this.buttonImageBrowse.Click += new System.EventHandler(this.ButtonImageBrowse_Click);
 			// 
 			// textBoxImagePath
 			// 
@@ -111,7 +111,7 @@
 			this.buttonPuzzleAutomatic.TabIndex = 6;
 			this.buttonPuzzleAutomatic.Text = "Automatic";
 			this.buttonPuzzleAutomatic.UseVisualStyleBackColor = true;
-			this.buttonPuzzleAutomatic.Click += new System.EventHandler(this.buttonPuzzleAutomatic_Click);
+			this.buttonPuzzleAutomatic.Click += new System.EventHandler(this.ButtonPuzzleAutomatic_Click);
 			// 
 			// buttonViewImage
 			// 
@@ -121,7 +121,7 @@
 			this.buttonViewImage.TabIndex = 5;
 			this.buttonViewImage.Text = "Image";
 			this.buttonViewImage.UseVisualStyleBackColor = true;
-			this.buttonViewImage.Click += new System.EventHandler(this.buttonViewImage_Click);
+			this.buttonViewImage.Click += new System.EventHandler(this.ButtonViewImage_Click);
 			// 
 			// textBoxColumns
 			// 
@@ -168,7 +168,7 @@
 			this.buttonCheck.TabIndex = 1;
 			this.buttonCheck.Text = "Check";
 			this.buttonCheck.UseVisualStyleBackColor = true;
-			this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
+			this.buttonCheck.Click += new System.EventHandler(this.ButtonCheck_Click);
 			// 
 			// buttonControl
 			// 
@@ -179,7 +179,7 @@
 			this.buttonControl.TabIndex = 0;
 			this.buttonControl.Text = "Shuffle";
 			this.buttonControl.UseVisualStyleBackColor = true;
-			this.buttonControl.Click += new System.EventHandler(this.buttonControl_Click);
+			this.buttonControl.Click += new System.EventHandler(this.ButtonControl_Click);
 			// 
 			// Form1
 			// 
