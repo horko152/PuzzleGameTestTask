@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,6 +20,7 @@ namespace PuzzleGameTestTask
 		}
 
 		#region Global variables
+		Label startLabel = null;
 		OpenFileDialog openFileDialog = null;
 		Image image;
 		PictureBox pictureboxPuzzle = null;
@@ -32,7 +34,11 @@ namespace PuzzleGameTestTask
 		#region Events
 		private void Form1_Load(object sender, EventArgs e)
 		{
-
+			startLabel = new Label();
+			startLabel.Text = "Choose your image from computer";
+			startLabel.AutoSize = true;
+			startLabel.Location = new Point(418, 274);
+			groupBoxPuzzle.Controls.Add(startLabel);
 		}
 
 		private void buttonImageBrowse_Click(object sender, EventArgs e)
@@ -62,11 +68,11 @@ namespace PuzzleGameTestTask
 						groupBoxPuzzle.Controls.Remove(picBoxes[i]);
 					}
 				}
+				groupBoxPuzzle.Controls.Remove(startLabel);
 				pictureboxPuzzle.Image = image;
 				textBoxRows.Enabled = true;
 				textBoxColumns.Enabled = true;
 				buttonControl.Enabled = true;
-				buttonCheck.Enabled = true;
 			}
 		}
 		private void buttonControl_Click(object sender, EventArgs e)
@@ -85,12 +91,16 @@ namespace PuzzleGameTestTask
 				images = new Image[countOfFragments];
 				picBoxes = new PictureBox[countOfFragments];
 			}
-			int unitX = groupBoxPuzzle.Width / numRow;
-			int unitY = groupBoxPuzzle.Height / numCol;
+			int unitX = groupBoxPuzzle.Width / numCol;
+			int unitY = groupBoxPuzzle.Height / numRow;
 			int[] indice = new int[countOfFragments];
 			for(int i =0; i< countOfFragments; i++)
 			{
 				indice[i] = i;
+				if(picBoxes[i] != null)
+				{
+					groupBoxPuzzle.Controls.Remove(picBoxes[i]);
+				}
 				if (picBoxes[i] == null)
 				{
 					picBoxes[i] = new MysteryBox();
@@ -119,6 +129,8 @@ namespace PuzzleGameTestTask
 			}
 			textBoxRows.Enabled = false;
 			textBoxColumns.Enabled = false;
+			buttonCheck.Enabled = true;
+			buttonPuzzleAutomatic.Enabled = true;
 		}
 		public void OnPuzzleClick(object sender, EventArgs e)
 		{
@@ -139,7 +151,34 @@ namespace PuzzleGameTestTask
 		}
 		private void buttonViewImage_Click(object sender, EventArgs e)
 		{
-
+			if (image != null)
+			{
+				Form currentImageForm = new Form();
+				PictureBox picture = new PictureBox();
+				picture.Image = CreateBitmapImage(image);
+				picture.SizeMode = PictureBoxSizeMode.AutoSize;
+				currentImageForm.Controls.Add(picture);
+				currentImageForm.Size = new Size(groupBoxPuzzle.Width, groupBoxPuzzle.Height + 30);
+				currentImageForm.StartPosition = FormStartPosition.CenterScreen;
+				currentImageForm.ShowDialog();
+			}
+			else
+			{
+				MessageBox.Show("Please pick an image for puzzle");
+			}
+		}
+		private void buttonCheck_Click(object sender, EventArgs e)
+		{
+			int numRow = Convert.ToInt32(textBoxRows.Text);
+			int numCol = Convert.ToInt32(textBoxColumns.Text);
+			countOfFragments = numRow * numCol;
+			for (int i = 0; i < countOfFragments; i++)
+			{
+				if (((MysteryBox)picBoxes[i]).ImageIndex == ((MysteryBox)picBoxes[i]).Index)
+				{
+					picBoxes[i].BorderStyle = BorderStyle.None;
+				}
+			}
 		}
 
 		private void buttonPuzzleAutomatic_Click(object sender, EventArgs e)
@@ -196,6 +235,7 @@ namespace PuzzleGameTestTask
 			box1.ImageIndex = tmp;
 			if(isSuccessful())
 			{
+				buttonCheck.PerformClick();
 				MessageBox.Show("Success");
 			}
 		}

@@ -33,14 +33,14 @@
 			this.textBoxImagePath = new System.Windows.Forms.TextBox();
 			this.groupBoxPuzzle = new System.Windows.Forms.GroupBox();
 			this.groupBoxControl = new System.Windows.Forms.GroupBox();
+			this.buttonPuzzleAutomatic = new System.Windows.Forms.Button();
+			this.buttonViewImage = new System.Windows.Forms.Button();
 			this.textBoxColumns = new System.Windows.Forms.TextBox();
 			this.textBoxRows = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.labelRow = new System.Windows.Forms.Label();
 			this.buttonCheck = new System.Windows.Forms.Button();
 			this.buttonControl = new System.Windows.Forms.Button();
-			this.buttonViewImage = new System.Windows.Forms.Button();
-			this.buttonPuzzleAutomatic = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBoxControl.SuspendLayout();
 			this.SuspendLayout();
@@ -51,18 +51,18 @@
 			this.groupBox1.Controls.Add(this.textBoxImagePath);
 			this.groupBox1.Location = new System.Drawing.Point(12, 12);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(950, 58);
+			this.groupBox1.Size = new System.Drawing.Size(919, 58);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Choose Image";
 			// 
 			// buttonImageBrowse
 			// 
-			this.buttonImageBrowse.Location = new System.Drawing.Point(778, 21);
+			this.buttonImageBrowse.Location = new System.Drawing.Point(782, 21);
 			this.buttonImageBrowse.Name = "buttonImageBrowse";
-			this.buttonImageBrowse.Size = new System.Drawing.Size(75, 23);
+			this.buttonImageBrowse.Size = new System.Drawing.Size(107, 23);
 			this.buttonImageBrowse.TabIndex = 1;
-			this.buttonImageBrowse.Text = "...";
+			this.buttonImageBrowse.Text = "Choose Image";
 			this.buttonImageBrowse.UseVisualStyleBackColor = true;
 			this.buttonImageBrowse.Click += new System.EventHandler(this.buttonImageBrowse_Click);
 			// 
@@ -70,7 +70,7 @@
 			// 
 			this.textBoxImagePath.Location = new System.Drawing.Point(6, 22);
 			this.textBoxImagePath.Name = "textBoxImagePath";
-			this.textBoxImagePath.Size = new System.Drawing.Size(622, 23);
+			this.textBoxImagePath.Size = new System.Drawing.Size(689, 23);
 			this.textBoxImagePath.TabIndex = 0;
 			// 
 			// groupBoxPuzzle
@@ -80,7 +80,7 @@
 			this.groupBoxPuzzle.Margin = new System.Windows.Forms.Padding(5);
 			this.groupBoxPuzzle.Name = "groupBoxPuzzle";
 			this.groupBoxPuzzle.Padding = new System.Windows.Forms.Padding(5);
-			this.groupBoxPuzzle.Size = new System.Drawing.Size(807, 485);
+			this.groupBoxPuzzle.Size = new System.Drawing.Size(917, 542);
 			this.groupBoxPuzzle.TabIndex = 1;
 			this.groupBoxPuzzle.TabStop = false;
 			this.groupBoxPuzzle.Text = "Puzzle";
@@ -95,12 +95,33 @@
 			this.groupBoxControl.Controls.Add(this.labelRow);
 			this.groupBoxControl.Controls.Add(this.buttonCheck);
 			this.groupBoxControl.Controls.Add(this.buttonControl);
-			this.groupBoxControl.Location = new System.Drawing.Point(840, 76);
+			this.groupBoxControl.Location = new System.Drawing.Point(939, 12);
 			this.groupBoxControl.Name = "groupBoxControl";
-			this.groupBoxControl.Size = new System.Drawing.Size(122, 261);
+			this.groupBoxControl.Size = new System.Drawing.Size(125, 297);
 			this.groupBoxControl.TabIndex = 2;
 			this.groupBoxControl.TabStop = false;
 			this.groupBoxControl.Text = "Control";
+			// 
+			// buttonPuzzleAutomatic
+			// 
+			this.buttonPuzzleAutomatic.Enabled = false;
+			this.buttonPuzzleAutomatic.Location = new System.Drawing.Point(31, 238);
+			this.buttonPuzzleAutomatic.Name = "buttonPuzzleAutomatic";
+			this.buttonPuzzleAutomatic.Size = new System.Drawing.Size(75, 23);
+			this.buttonPuzzleAutomatic.TabIndex = 6;
+			this.buttonPuzzleAutomatic.Text = "Automatic";
+			this.buttonPuzzleAutomatic.UseVisualStyleBackColor = true;
+			this.buttonPuzzleAutomatic.Click += new System.EventHandler(this.buttonPuzzleAutomatic_Click);
+			// 
+			// buttonViewImage
+			// 
+			this.buttonViewImage.Location = new System.Drawing.Point(31, 135);
+			this.buttonViewImage.Name = "buttonViewImage";
+			this.buttonViewImage.Size = new System.Drawing.Size(75, 23);
+			this.buttonViewImage.TabIndex = 5;
+			this.buttonViewImage.Text = "Image";
+			this.buttonViewImage.UseVisualStyleBackColor = true;
+			this.buttonViewImage.Click += new System.EventHandler(this.buttonViewImage_Click);
 			// 
 			// textBoxColumns
 			// 
@@ -141,17 +162,18 @@
 			// buttonCheck
 			// 
 			this.buttonCheck.Enabled = false;
-			this.buttonCheck.Location = new System.Drawing.Point(31, 186);
+			this.buttonCheck.Location = new System.Drawing.Point(31, 185);
 			this.buttonCheck.Name = "buttonCheck";
 			this.buttonCheck.Size = new System.Drawing.Size(75, 23);
 			this.buttonCheck.TabIndex = 1;
 			this.buttonCheck.Text = "Check";
 			this.buttonCheck.UseVisualStyleBackColor = true;
+			this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
 			// 
 			// buttonControl
 			// 
 			this.buttonControl.Enabled = false;
-			this.buttonControl.Location = new System.Drawing.Point(31, 72);
+			this.buttonControl.Location = new System.Drawing.Point(31, 87);
 			this.buttonControl.Name = "buttonControl";
 			this.buttonControl.Size = new System.Drawing.Size(75, 23);
 			this.buttonControl.TabIndex = 0;
@@ -159,31 +181,11 @@
 			this.buttonControl.UseVisualStyleBackColor = true;
 			this.buttonControl.Click += new System.EventHandler(this.buttonControl_Click);
 			// 
-			// buttonViewImage
-			// 
-			this.buttonViewImage.Location = new System.Drawing.Point(31, 117);
-			this.buttonViewImage.Name = "buttonViewImage";
-			this.buttonViewImage.Size = new System.Drawing.Size(75, 23);
-			this.buttonViewImage.TabIndex = 5;
-			this.buttonViewImage.Text = "Image";
-			this.buttonViewImage.UseVisualStyleBackColor = true;
-			this.buttonViewImage.Click += new System.EventHandler(this.buttonViewImage_Click);
-			// 
-			// buttonPuzzleAutomatic
-			// 
-			this.buttonPuzzleAutomatic.Location = new System.Drawing.Point(31, 232);
-			this.buttonPuzzleAutomatic.Name = "buttonPuzzleAutomatic";
-			this.buttonPuzzleAutomatic.Size = new System.Drawing.Size(75, 23);
-			this.buttonPuzzleAutomatic.TabIndex = 6;
-			this.buttonPuzzleAutomatic.Text = "Automatic";
-			this.buttonPuzzleAutomatic.UseVisualStyleBackColor = true;
-			this.buttonPuzzleAutomatic.Click += new System.EventHandler(this.buttonPuzzleAutomatic_Click);
-			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(974, 569);
+			this.ClientSize = new System.Drawing.Size(1076, 632);
 			this.Controls.Add(this.groupBoxControl);
 			this.Controls.Add(this.groupBoxPuzzle);
 			this.Controls.Add(this.groupBox1);
