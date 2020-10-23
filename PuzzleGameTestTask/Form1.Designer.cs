@@ -129,7 +129,7 @@
 			this.textBoxColumns.Name = "textBoxColumns";
 			this.textBoxColumns.Size = new System.Drawing.Size(30, 23);
 			this.textBoxColumns.TabIndex = 4;
-			this.textBoxColumns.Text = "4";
+			this.textBoxColumns.Text = "6";
 			this.textBoxColumns.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// textBoxRows
@@ -138,7 +138,7 @@
 			this.textBoxRows.Name = "textBoxRows";
 			this.textBoxRows.Size = new System.Drawing.Size(30, 23);
 			this.textBoxRows.TabIndex = 4;
-			this.textBoxRows.Text = "4";
+			this.textBoxRows.Text = "6";
 			this.textBoxRows.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label1
@@ -212,12 +212,12 @@
 		private System.Windows.Forms.GroupBox groupBoxControl;
 		private System.Windows.Forms.Button buttonCheck;
 		private System.Windows.Forms.Button buttonControl;
-		private System.Windows.Forms.TextBox textBoxColumns;
-		private System.Windows.Forms.TextBox textBoxRows;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label labelRow;
 		private System.Windows.Forms.Button buttonPuzzleAutomatic;
 		private System.Windows.Forms.Button buttonViewImage;
+		private System.Windows.Forms.TextBox textBoxColumns;
+		private System.Windows.Forms.TextBox textBoxRows;
 	}
 }
 

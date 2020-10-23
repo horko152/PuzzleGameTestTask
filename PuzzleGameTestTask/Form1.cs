@@ -51,9 +51,7 @@ namespace PuzzleGameTestTask
 			}
 			if(openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
-				int numRow = Convert.ToInt32(textBoxRows.Text);
-				int numCol = Convert.ToInt32(textBoxColumns.Text);
-				countOfFragments = numRow * numCol;
+				countOfFragments = GetCountOfFragments();
 				textBoxImagePath.Text = openFileDialog.FileName;
 				image = CreateBitmapImage(Image.FromFile(openFileDialog.FileName));
 				if(pictureboxPuzzle == null)
@@ -175,9 +173,7 @@ namespace PuzzleGameTestTask
 		}
 		private void ButtonCheck_Click(object sender, EventArgs e)
 		{
-			int numRow = Convert.ToInt32(textBoxRows.Text);
-			int numCol = Convert.ToInt32(textBoxColumns.Text);
-			countOfFragments = numRow * numCol;
+			countOfFragments = GetCountOfFragments();
 			for (int i = 0; i < countOfFragments; i++)
 			{
 				if (((MysteryBox)picBoxes[i]).ImageIndex == ((MysteryBox)picBoxes[i]).Index)
@@ -189,15 +185,12 @@ namespace PuzzleGameTestTask
 
 		private void ButtonPuzzleAutomatic_Click(object sender, EventArgs e)
 		{
-			int numRow = Convert.ToInt32(textBoxRows.Text);
-			int numCol = Convert.ToInt32(textBoxColumns.Text);
-			countOfFragments = numRow * numCol;
 			buttonCheck.PerformClick();
-			AutomaticMethod(numRow, numCol, countOfFragments);
-			MessageBox.Show("dsadas");
-			GC.Collect();
-			//string toDisplay = string.Join(Environment.NewLine, indexes);
-			//MessageBox.Show(toDisplay);
+			countOfFragments = GetCountOfFragments();
+			if (AutomaticMethod(countOfFragments))
+			{
+				MessageBox.Show("dsadas");
+			}
 		}
 		#endregion
 
@@ -226,6 +219,11 @@ namespace PuzzleGameTestTask
 		#endregion
 
 		#region Additional methods
+		private int GetCountOfFragments()
+		{
+			return Convert.ToInt32(textBoxRows.Text) * Convert.ToInt32(textBoxColumns.Text);
+		}
+
 		private void Shuffle(ref int[] array)
 		{
 			int n = array.Length;
@@ -245,7 +243,7 @@ namespace PuzzleGameTestTask
 			return rng.Next(maxValue);
 		}
 
-		private bool AutomaticMethod(int numRow, int numCol, int countOfFragments)
+		private bool AutomaticMethod(int countOfFragments)
 		{
 			bool[] indexes = new bool[countOfFragments];
 			int rightPuzzle = 0;
@@ -293,7 +291,7 @@ namespace PuzzleGameTestTask
 			}
 			else
 			{
-				return AutomaticMethod(numRow,numCol,countOfFragments);
+				return AutomaticMethod(countOfFragments);
 			}
 		}
 
@@ -308,15 +306,12 @@ namespace PuzzleGameTestTask
 			{
 				buttonCheck.PerformClick();
 				MessageBox.Show("Success");
-				return;
 			}
 		}
 
 		private bool IsSuccessful()
 		{
-			int numRow = Convert.ToInt32(textBoxRows.Text);
-			int numCol = Convert.ToInt32(textBoxColumns.Text);
-			countOfFragments = numRow * numCol;
+			countOfFragments = GetCountOfFragments();
 			for (int i=0; i< countOfFragments; i++)
 			{
 				if (((MysteryBox)picBoxes[i]).ImageIndex != ((MysteryBox)picBoxes[i]).Index)
