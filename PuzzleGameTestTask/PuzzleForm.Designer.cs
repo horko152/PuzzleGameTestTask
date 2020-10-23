@@ -33,20 +33,20 @@
 			this.textBoxImagePath = new System.Windows.Forms.TextBox();
 			this.groupBoxPuzzle = new System.Windows.Forms.GroupBox();
 			this.groupBoxControl = new System.Windows.Forms.GroupBox();
-			this.buttonPuzzleAutomatic = new System.Windows.Forms.Button();
+			this.numericUpDownColumns = new System.Windows.Forms.NumericUpDown();
+			this.numericUpDownRows = new System.Windows.Forms.NumericUpDown();
+			this.buttonAutomaticAssemblyPuzzle = new System.Windows.Forms.Button();
 			this.buttonViewImage = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.labelRow = new System.Windows.Forms.Label();
 			this.buttonCheck = new System.Windows.Forms.Button();
-			this.buttonControl = new System.Windows.Forms.Button();
+			this.buttonShuffle = new System.Windows.Forms.Button();
 			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDownRows = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDownColumns = new System.Windows.Forms.NumericUpDown();
 			this.groupBox1.SuspendLayout();
 			this.groupBoxControl.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -93,12 +93,12 @@
 			// 
 			this.groupBoxControl.Controls.Add(this.numericUpDownColumns);
 			this.groupBoxControl.Controls.Add(this.numericUpDownRows);
-			this.groupBoxControl.Controls.Add(this.buttonPuzzleAutomatic);
+			this.groupBoxControl.Controls.Add(this.buttonAutomaticAssemblyPuzzle);
 			this.groupBoxControl.Controls.Add(this.buttonViewImage);
 			this.groupBoxControl.Controls.Add(this.label1);
 			this.groupBoxControl.Controls.Add(this.labelRow);
 			this.groupBoxControl.Controls.Add(this.buttonCheck);
-			this.groupBoxControl.Controls.Add(this.buttonControl);
+			this.groupBoxControl.Controls.Add(this.buttonShuffle);
 			this.groupBoxControl.Location = new System.Drawing.Point(939, 12);
 			this.groupBoxControl.Name = "groupBoxControl";
 			this.groupBoxControl.Size = new System.Drawing.Size(125, 297);
@@ -106,16 +106,42 @@
 			this.groupBoxControl.TabStop = false;
 			this.groupBoxControl.Text = "Control";
 			// 
-			// buttonPuzzleAutomatic
+			// numericUpDownColumns
 			// 
-			this.buttonPuzzleAutomatic.Enabled = false;
-			this.buttonPuzzleAutomatic.Location = new System.Drawing.Point(31, 238);
-			this.buttonPuzzleAutomatic.Name = "buttonPuzzleAutomatic";
-			this.buttonPuzzleAutomatic.Size = new System.Drawing.Size(75, 23);
-			this.buttonPuzzleAutomatic.TabIndex = 6;
-			this.buttonPuzzleAutomatic.Text = "Automatic";
-			this.buttonPuzzleAutomatic.UseVisualStyleBackColor = true;
-			this.buttonPuzzleAutomatic.Click += new System.EventHandler(this.ButtonPuzzleAutomatic_Click);
+			this.numericUpDownColumns.Enabled = false;
+			this.numericUpDownColumns.Location = new System.Drawing.Point(73, 44);
+			this.numericUpDownColumns.Name = "numericUpDownColumns";
+			this.numericUpDownColumns.Size = new System.Drawing.Size(46, 23);
+			this.numericUpDownColumns.TabIndex = 8;
+			this.numericUpDownColumns.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+			// 
+			// numericUpDownRows
+			// 
+			this.numericUpDownRows.Enabled = false;
+			this.numericUpDownRows.Location = new System.Drawing.Point(73, 17);
+			this.numericUpDownRows.Name = "numericUpDownRows";
+			this.numericUpDownRows.Size = new System.Drawing.Size(46, 23);
+			this.numericUpDownRows.TabIndex = 7;
+			this.numericUpDownRows.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+			// 
+			// buttonAutomaticAssemblyPuzzle
+			// 
+			this.buttonAutomaticAssemblyPuzzle.Enabled = false;
+			this.buttonAutomaticAssemblyPuzzle.Location = new System.Drawing.Point(31, 238);
+			this.buttonAutomaticAssemblyPuzzle.Name = "buttonAutomaticAssemblyPuzzle";
+			this.buttonAutomaticAssemblyPuzzle.Size = new System.Drawing.Size(75, 23);
+			this.buttonAutomaticAssemblyPuzzle.TabIndex = 6;
+			this.buttonAutomaticAssemblyPuzzle.Text = "Automatic";
+			this.buttonAutomaticAssemblyPuzzle.UseVisualStyleBackColor = true;
+			this.buttonAutomaticAssemblyPuzzle.Click += new System.EventHandler(this.ButtonAutomaticAssemblyPuzzle_Click);
 			// 
 			// buttonViewImage
 			// 
@@ -157,42 +183,25 @@
 			this.buttonCheck.UseVisualStyleBackColor = true;
 			this.buttonCheck.Click += new System.EventHandler(this.ButtonCheck_Click);
 			// 
-			// buttonControl
+			// buttonShuffle
 			// 
-			this.buttonControl.Enabled = false;
-			this.buttonControl.Location = new System.Drawing.Point(31, 87);
-			this.buttonControl.Name = "buttonControl";
-			this.buttonControl.Size = new System.Drawing.Size(75, 23);
-			this.buttonControl.TabIndex = 0;
-			this.buttonControl.Text = "Shuffle";
-			this.buttonControl.UseVisualStyleBackColor = true;
-			this.buttonControl.Click += new System.EventHandler(this.ButtonControl_Click);
+			this.buttonShuffle.Enabled = false;
+			this.buttonShuffle.Location = new System.Drawing.Point(31, 87);
+			this.buttonShuffle.Name = "buttonShuffle";
+			this.buttonShuffle.Size = new System.Drawing.Size(75, 23);
+			this.buttonShuffle.TabIndex = 0;
+			this.buttonShuffle.Text = "Shuffle";
+			this.buttonShuffle.UseVisualStyleBackColor = true;
+			this.buttonShuffle.Click += new System.EventHandler(this.ButtonShuffle_Click);
 			// 
-			// numericUpDownRows
+			// numericUpDown1
 			// 
-			this.numericUpDownRows.Location = new System.Drawing.Point(73, 17);
-			this.numericUpDownRows.Name = "numericUpDownRows";
-			this.numericUpDownRows.Size = new System.Drawing.Size(46, 23);
-			this.numericUpDownRows.TabIndex = 7;
-			this.numericUpDownRows.Value = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
+			this.numericUpDown1.Location = new System.Drawing.Point(0, 0);
+			this.numericUpDown1.Name = "numericUpDown1";
+			this.numericUpDown1.Size = new System.Drawing.Size(120, 23);
+			this.numericUpDown1.TabIndex = 0;
 			// 
-			// numericUpDownColumns
-			// 
-			this.numericUpDownColumns.Location = new System.Drawing.Point(73, 44);
-			this.numericUpDownColumns.Name = "numericUpDownColumns";
-			this.numericUpDownColumns.Size = new System.Drawing.Size(46, 23);
-			this.numericUpDownColumns.TabIndex = 8;
-			this.numericUpDownColumns.Value = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
-			// 
-			// Form1
+			// PuzzleForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -202,16 +211,16 @@
 			this.Controls.Add(this.groupBox1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
-			this.Name = "Form1";
+			this.Name = "PuzzleForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Puzzle Game";
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBoxControl.ResumeLayout(false);
 			this.groupBoxControl.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -224,10 +233,10 @@
 		private System.Windows.Forms.GroupBox groupBoxPuzzle;
 		private System.Windows.Forms.GroupBox groupBoxControl;
 		private System.Windows.Forms.Button buttonCheck;
-		private System.Windows.Forms.Button buttonControl;
+		private System.Windows.Forms.Button buttonShuffle;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label labelRow;
-		private System.Windows.Forms.Button buttonPuzzleAutomatic;
+		private System.Windows.Forms.Button buttonAutomaticAssemblyPuzzle;
 		private System.Windows.Forms.Button buttonViewImage;
 		private System.Windows.Forms.NumericUpDown numericUpDownColumns;
 		private System.Windows.Forms.NumericUpDown numericUpDownRows;

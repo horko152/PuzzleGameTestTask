@@ -20,11 +20,29 @@ namespace PuzzleGameTestTask
 		}
 
 		#region Global variables
-		Image image;
+		/// <summary>
+		/// PictureBox for main image
+		/// </summary>
 		PictureBox pictureboxPuzzle = null;
+		/// <summary>
+		/// Image for making a puzzle
+		/// </summary>
+		Image image;
+		/// <summary>
+		/// Array of PictureBoxes for a crushed puzzle
+		/// </summary>
 		PictureBox[] picBoxes = null;
+		/// <summary>
+		/// Array of images inside PictureBoxes
+		/// </summary>
 		Image[] images = null;
+		/// <summary>
+		/// Count of puzzle fragments
+		/// </summary>
 		int countOfFragments;
+		/// <summary>
+		/// Variables for swapping puzzles
+		/// </summary>
 		MysteryBox firstBox = null;
 		MysteryBox secondBox = null;
 		#endregion
@@ -65,10 +83,10 @@ namespace PuzzleGameTestTask
 				buttonViewImage.Enabled = true;
 				numericUpDownRows.Enabled = true;
 				numericUpDownColumns.Enabled = true;
-				buttonControl.Enabled = true;
+				buttonShuffle.Enabled = true;
 			}
 		}
-		private void ButtonControl_Click(object sender, EventArgs e)
+		private void ButtonShuffle_Click(object sender, EventArgs e)
 		{
 			int numRow = Convert.ToInt32(numericUpDownRows.Value);
 			int numCol = Convert.ToInt32(numericUpDownColumns.Value);
@@ -94,12 +112,13 @@ namespace PuzzleGameTestTask
 			for(int i =0; i< countOfFragments; i++)
 			{
 				indice[i] = i;
-
-				if(picBoxes[i] != null)
+				
+				if (picBoxes[i] != null)
 				{
 					picBoxes[i].BorderStyle = BorderStyle.Fixed3D;
 					groupBoxPuzzle.Controls.Remove(picBoxes[i]);
 				}
+
 				if (picBoxes[i] == null)
 				{
 					picBoxes[i] = new MysteryBox();
@@ -130,7 +149,7 @@ namespace PuzzleGameTestTask
 			numericUpDownRows.Enabled = false;
 			numericUpDownColumns.Enabled = false;
 			buttonCheck.Enabled = true;
-			buttonPuzzleAutomatic.Enabled = true;
+			buttonAutomaticAssemblyPuzzle.Enabled = true;
 		}
 		public void OnPuzzleClick(object sender, EventArgs e)
 		{
@@ -138,7 +157,8 @@ namespace PuzzleGameTestTask
 			{
 				firstBox = (MysteryBox)sender;
 				firstBox.BorderStyle = BorderStyle.FixedSingle;
-			} else if(secondBox == null)
+			} 
+			else if(secondBox == null)
 			{
 				secondBox = (MysteryBox)sender;
 				firstBox.BorderStyle = BorderStyle.Fixed3D;
@@ -174,7 +194,7 @@ namespace PuzzleGameTestTask
 			for (int i = 0; i < countOfFragments; i++)
 			{
 
-				if (((MysteryBox)picBoxes[i]).ImageIndex == ((MysteryBox)picBoxes[i]).Index)
+				if (((MysteryBox)picBoxes[i]).IsMath())
 				{
 					picBoxes[i].BorderStyle = BorderStyle.None;
 				}
@@ -182,7 +202,7 @@ namespace PuzzleGameTestTask
 			}
 		}
 
-		private void ButtonPuzzleAutomatic_Click(object sender, EventArgs e)
+		private void ButtonAutomaticAssemblyPuzzle_Click(object sender, EventArgs e)
 		{
 			buttonCheck.PerformClick();
 			countOfFragments = GetCountOfFragments();
@@ -230,7 +250,7 @@ namespace PuzzleGameTestTask
 
 			while (n > 1)
 			{
-				int k = RandomNumber(n);
+				int k = GetRandomNumber(n);
 				n--;
 				int temp = array[n];
 				array[n] = array[k];
@@ -238,7 +258,7 @@ namespace PuzzleGameTestTask
 			}
 		}
 
-		private int RandomNumber(int maxValue)
+		private int GetRandomNumber(int maxValue)
 		{
 			Random rng = new Random();
 			return rng.Next(maxValue);
@@ -265,8 +285,8 @@ namespace PuzzleGameTestTask
 
 			for (int i = 0; i < countOfFragments; i++)
 			{
-				firstBox = RandomNumber(countOfFragments);
-				secondBox = RandomNumber(countOfFragments);
+				firstBox = GetRandomNumber(countOfFragments);
+				secondBox = GetRandomNumber(countOfFragments);
 
 				if (firstBox != secondBox && indexes[firstBox] == false && indexes[secondBox] == false)
 				{
@@ -297,7 +317,8 @@ namespace PuzzleGameTestTask
 			if(rightPuzzle == countOfFragments)
 			{
 				return true;
-			} else
+			} 
+			else
 			{
 				return AutomaticMethod(countOfFragments);
 			}
@@ -325,7 +346,7 @@ namespace PuzzleGameTestTask
 			for (int i=0; i< countOfFragments; i++)
 			{
 
-				if (((MysteryBox)picBoxes[i]).ImageIndex != ((MysteryBox)picBoxes[i]).Index)
+				if (!((MysteryBox)picBoxes[i]).IsMath())
 				{
 					return false;
 				}

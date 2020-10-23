@@ -9,7 +9,7 @@ namespace PuzzleGameTestTask
 	{
 		public int Index { get; set; }
 		public int ImageIndex { get; set; }
-		public bool isMath()
+		public bool IsMath()
 		{
 			return (Index == ImageIndex);
 		}
