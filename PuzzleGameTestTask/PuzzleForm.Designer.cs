@@ -1,6 +1,6 @@
 ﻿namespace PuzzleGameTestTask
 {
-	partial class Form1
+	partial class PuzzleForm
 	{
 		/// <summary>
 		///  Required designer variable.
@@ -35,14 +35,18 @@
 			this.groupBoxControl = new System.Windows.Forms.GroupBox();
 			this.buttonPuzzleAutomatic = new System.Windows.Forms.Button();
 			this.buttonViewImage = new System.Windows.Forms.Button();
-			this.textBoxColumns = new System.Windows.Forms.TextBox();
-			this.textBoxRows = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.labelRow = new System.Windows.Forms.Label();
 			this.buttonCheck = new System.Windows.Forms.Button();
 			this.buttonControl = new System.Windows.Forms.Button();
+			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+			this.numericUpDownRows = new System.Windows.Forms.NumericUpDown();
+			this.numericUpDownColumns = new System.Windows.Forms.NumericUpDown();
 			this.groupBox1.SuspendLayout();
 			this.groupBoxControl.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -87,10 +91,10 @@
 			// 
 			// groupBoxControl
 			// 
+			this.groupBoxControl.Controls.Add(this.numericUpDownColumns);
+			this.groupBoxControl.Controls.Add(this.numericUpDownRows);
 			this.groupBoxControl.Controls.Add(this.buttonPuzzleAutomatic);
 			this.groupBoxControl.Controls.Add(this.buttonViewImage);
-			this.groupBoxControl.Controls.Add(this.textBoxColumns);
-			this.groupBoxControl.Controls.Add(this.textBoxRows);
 			this.groupBoxControl.Controls.Add(this.label1);
 			this.groupBoxControl.Controls.Add(this.labelRow);
 			this.groupBoxControl.Controls.Add(this.buttonCheck);
@@ -115,6 +119,7 @@
 			// 
 			// buttonViewImage
 			// 
+			this.buttonViewImage.Enabled = false;
 			this.buttonViewImage.Location = new System.Drawing.Point(31, 135);
 			this.buttonViewImage.Name = "buttonViewImage";
 			this.buttonViewImage.Size = new System.Drawing.Size(75, 23);
@@ -122,24 +127,6 @@
 			this.buttonViewImage.Text = "Image";
 			this.buttonViewImage.UseVisualStyleBackColor = true;
 			this.buttonViewImage.Click += new System.EventHandler(this.ButtonViewImage_Click);
-			// 
-			// textBoxColumns
-			// 
-			this.textBoxColumns.Location = new System.Drawing.Point(85, 43);
-			this.textBoxColumns.Name = "textBoxColumns";
-			this.textBoxColumns.Size = new System.Drawing.Size(30, 23);
-			this.textBoxColumns.TabIndex = 4;
-			this.textBoxColumns.Text = "6";
-			this.textBoxColumns.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// textBoxRows
-			// 
-			this.textBoxRows.Location = new System.Drawing.Point(85, 16);
-			this.textBoxRows.Name = "textBoxRows";
-			this.textBoxRows.Size = new System.Drawing.Size(30, 23);
-			this.textBoxRows.TabIndex = 4;
-			this.textBoxRows.Text = "6";
-			this.textBoxRows.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label1
 			// 
@@ -181,6 +168,30 @@
 			this.buttonControl.UseVisualStyleBackColor = true;
 			this.buttonControl.Click += new System.EventHandler(this.ButtonControl_Click);
 			// 
+			// numericUpDownRows
+			// 
+			this.numericUpDownRows.Location = new System.Drawing.Point(73, 17);
+			this.numericUpDownRows.Name = "numericUpDownRows";
+			this.numericUpDownRows.Size = new System.Drawing.Size(46, 23);
+			this.numericUpDownRows.TabIndex = 7;
+			this.numericUpDownRows.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+			// 
+			// numericUpDownColumns
+			// 
+			this.numericUpDownColumns.Location = new System.Drawing.Point(73, 44);
+			this.numericUpDownColumns.Name = "numericUpDownColumns";
+			this.numericUpDownColumns.Size = new System.Drawing.Size(46, 23);
+			this.numericUpDownColumns.TabIndex = 8;
+			this.numericUpDownColumns.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -194,11 +205,13 @@
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Puzzle Game";
-			this.Load += new System.EventHandler(this.Form1_Load);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBoxControl.ResumeLayout(false);
 			this.groupBoxControl.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -216,8 +229,9 @@
 		private System.Windows.Forms.Label labelRow;
 		private System.Windows.Forms.Button buttonPuzzleAutomatic;
 		private System.Windows.Forms.Button buttonViewImage;
-		private System.Windows.Forms.TextBox textBoxColumns;
-		private System.Windows.Forms.TextBox textBoxRows;
+		private System.Windows.Forms.NumericUpDown numericUpDownColumns;
+		private System.Windows.Forms.NumericUpDown numericUpDownRows;
+		private System.Windows.Forms.NumericUpDown numericUpDown1;
 	}
 }
 
