@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-
-namespace PuzzleGameTestTask
+﻿namespace PuzzleGameTestTask
 {
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
+	using System.Data;
+	using System.Drawing;
+	using System.Linq;
+	using System.Security.Cryptography;
+	using System.Text;
+	using System.Threading.Tasks;
+	using System.Windows.Forms;
+	using System.Windows.Forms.VisualStyles;
 	public partial class PuzzleForm : Form
 	{
 		public PuzzleForm()
@@ -31,7 +30,7 @@ namespace PuzzleGameTestTask
 		/// <summary>
 		/// Array of PictureBoxes for a crushed puzzle
 		/// </summary>
-		PictureBox[] picBoxes = null;
+		MysteryBox[] mysteryBoxes = null;
 		/// <summary>
 		/// Array of images inside PictureBoxes
 		/// </summary>
@@ -53,13 +52,13 @@ namespace PuzzleGameTestTask
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 
-			if(openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				countOfFragments = GetCountOfFragments();
 				textBoxImagePath.Text = openFileDialog.FileName;
 				image = CreateBitmapImage(Image.FromFile(openFileDialog.FileName));
 
-				if(pictureboxPuzzle == null)
+				if (pictureboxPuzzle == null)
 				{
 					pictureboxPuzzle = new PictureBox
 					{
@@ -69,12 +68,12 @@ namespace PuzzleGameTestTask
 					groupBoxPuzzle.Controls.Add(pictureboxPuzzle);
 				}
 
-				if (picBoxes != null)
+				if (mysteryBoxes != null)
 				{
 
 					for (int i = 0; i < countOfFragments; i++)
 					{
-						groupBoxPuzzle.Controls.Remove(picBoxes[i]);
+						groupBoxPuzzle.Controls.Remove(mysteryBoxes[i]);
 					}
 
 				}
@@ -99,51 +98,52 @@ namespace PuzzleGameTestTask
 				pictureboxPuzzle = null;
 			}
 
-			if (picBoxes == null)
+			if (mysteryBoxes == null)
 			{
 				images = new Image[countOfFragments];
-				picBoxes = new PictureBox[countOfFragments];
+				mysteryBoxes = new MysteryBox[countOfFragments];
 			}
 
 			int unitX = groupBoxPuzzle.Width / numCol;
 			int unitY = groupBoxPuzzle.Height / numRow;
 			int[] indice = new int[countOfFragments];
 
-			for(int i =0; i< countOfFragments; i++)
+			for (int i = 0; i < countOfFragments; i++)
 			{
 				indice[i] = i;
-				
-				if (picBoxes[i] != null)
+
+				if (mysteryBoxes[i] != null)
 				{
-					picBoxes[i].BorderStyle = BorderStyle.Fixed3D;
-					groupBoxPuzzle.Controls.Remove(picBoxes[i]);
+					mysteryBoxes[i].BorderStyle = BorderStyle.Fixed3D;
+					groupBoxPuzzle.Controls.Remove(mysteryBoxes[i]);
+					mysteryBoxes[i] = null;
 				}
 
-				if (picBoxes[i] == null)
+				if (mysteryBoxes[i] == null)
 				{
-					picBoxes[i] = new MysteryBox();
-					picBoxes[i].Click += new EventHandler(OnPuzzleClick);
-					picBoxes[i].BorderStyle = BorderStyle.Fixed3D;
-					picBoxes[i].SizeMode = PictureBoxSizeMode.CenterImage;
-					picBoxes[i].Width = unitX;
-					picBoxes[i].Height = unitY;
+					mysteryBoxes[i] = new MysteryBox();
+					mysteryBoxes[i].Click += new EventHandler(OnPuzzleClick);
+					mysteryBoxes[i].BorderStyle = BorderStyle.Fixed3D;
+					mysteryBoxes[i].SizeMode = PictureBoxSizeMode.CenterImage;
+					mysteryBoxes[i].Width = unitX;
+					mysteryBoxes[i].Height = unitY;
 				}
 
-				((MysteryBox)picBoxes[i]).Index = i;
+				mysteryBoxes[i].Index = i;
 				CreateBitmapImage(image, images, i, numRow, numCol, unitX, unitY);
-				picBoxes[i].Location = new Point(unitX * (i % numCol), unitY * (i / numCol));
+				mysteryBoxes[i].Location = new Point(unitX * (i % numCol), unitY * (i / numCol));
 
-				if(!groupBoxPuzzle.Controls.Contains(picBoxes[i]))
+				if (!groupBoxPuzzle.Controls.Contains(mysteryBoxes[i]))
 				{
-					groupBoxPuzzle.Controls.Add(picBoxes[i]);
+					groupBoxPuzzle.Controls.Add(mysteryBoxes[i]);
 				}
 			}
 			Shuffle(ref indice);
 
-			for(int i=0; i < countOfFragments; i++)
+			for (int i = 0; i < countOfFragments; i++)
 			{
-				((MysteryBox)picBoxes[i]).ImageIndex = indice[i];
-				picBoxes[i].Image = images[indice[i]];
+				mysteryBoxes[i].ImageIndex = indice[i];
+				mysteryBoxes[i].Image = images[indice[i]];
 			}
 
 			numericUpDownRows.Enabled = false;
@@ -153,12 +153,12 @@ namespace PuzzleGameTestTask
 		}
 		public void OnPuzzleClick(object sender, EventArgs e)
 		{
-			if(firstBox == null)
+			if (firstBox == null)
 			{
 				firstBox = (MysteryBox)sender;
 				firstBox.BorderStyle = BorderStyle.FixedSingle;
-			} 
-			else if(secondBox == null)
+			}
+			else if (secondBox == null)
 			{
 				secondBox = (MysteryBox)sender;
 				firstBox.BorderStyle = BorderStyle.Fixed3D;
@@ -194,9 +194,9 @@ namespace PuzzleGameTestTask
 			for (int i = 0; i < countOfFragments; i++)
 			{
 
-				if (((MysteryBox)picBoxes[i]).IsMath())
+				if (mysteryBoxes[i].IsMath())
 				{
-					picBoxes[i].BorderStyle = BorderStyle.None;
+					mysteryBoxes[i].BorderStyle = BorderStyle.None;
 				}
 
 			}
@@ -268,39 +268,30 @@ namespace PuzzleGameTestTask
 		{
 			bool[] indexes = new bool[countOfFragments];
 			int rightPuzzle = 0;
-			int firstBox;
-			int secondBox;
 
 			for (int i = 0; i < countOfFragments; i++)
 			{
-				if (picBoxes[i].BorderStyle == BorderStyle.None)
-				{
-					indexes[i] = true;
-				}
-				else
-				{
-					indexes[i] = false;
-				}
+				indexes[i] = mysteryBoxes[i].IsOnRightPlace;
 			}
 
 			for (int i = 0; i < countOfFragments; i++)
 			{
-				firstBox = GetRandomNumber(countOfFragments);
-				secondBox = GetRandomNumber(countOfFragments);
+				int firstBoxChoosen = GetRandomNumber(countOfFragments);
+				int secondBoxChoosen = GetRandomNumber(countOfFragments);
 
-				if (firstBox != secondBox && indexes[firstBox] == false && indexes[secondBox] == false)
+				if (firstBoxChoosen != secondBoxChoosen && indexes[firstBoxChoosen] == false && indexes[secondBoxChoosen] == false)
 				{
-					SwitchImage((MysteryBox)picBoxes[firstBox], (MysteryBox)picBoxes[secondBox]);
+					SwitchImage(mysteryBoxes[firstBoxChoosen], mysteryBoxes[secondBoxChoosen]);
 					buttonCheck.PerformClick();
 
-					if (picBoxes[firstBox].BorderStyle == BorderStyle.None)
+					if (mysteryBoxes[firstBoxChoosen].BorderStyle == BorderStyle.None)
 					{
-						indexes[firstBox] = true;
+						indexes[firstBoxChoosen] = true;
 					}
 
-					if (picBoxes[secondBox].BorderStyle == BorderStyle.None)
+					if (mysteryBoxes[secondBoxChoosen].BorderStyle == BorderStyle.None)
 					{
-						indexes[secondBox] = true;
+						indexes[secondBoxChoosen] = true;
 					}
 				}
 			}
@@ -314,10 +305,10 @@ namespace PuzzleGameTestTask
 				}
 			}
 
-			if(rightPuzzle == countOfFragments)
+			if (rightPuzzle == countOfFragments)
 			{
 				return true;
-			} 
+			}
 			else
 			{
 				return AutomaticMethod(countOfFragments);
@@ -332,10 +323,12 @@ namespace PuzzleGameTestTask
 			box1.Image = images[tmp];
 			box1.ImageIndex = tmp;
 
-			if(IsSuccessful())
+			if (IsSuccessful())
 			{
 				buttonCheck.PerformClick();
 				MessageBox.Show("Success");
+				numericUpDownRows.Enabled = true;
+				numericUpDownColumns.Enabled = true;
 			}
 		}
 
@@ -343,10 +336,10 @@ namespace PuzzleGameTestTask
 		{
 			countOfFragments = GetCountOfFragments();
 
-			for (int i=0; i< countOfFragments; i++)
+			for (int i = 0; i < countOfFragments; i++)
 			{
 
-				if (!((MysteryBox)picBoxes[i]).IsMath())
+				if (!mysteryBoxes[i].IsMath())
 				{
 					return false;
 				}

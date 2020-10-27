@@ -46,7 +46,6 @@
 			this.groupBoxControl.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
