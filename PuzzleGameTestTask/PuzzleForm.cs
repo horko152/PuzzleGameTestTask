@@ -316,7 +316,7 @@
 			}
 		}
 
-		// Method that checked if a piece of puzzle is om right place
+		// Method that checked if a piece of puzzle is on right place
 		private bool IsSuccessful()
 		{
 			countOfFragments = GetCountOfFragments();
