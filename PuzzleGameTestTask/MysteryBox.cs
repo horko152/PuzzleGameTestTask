@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-
-namespace PuzzleGameTestTask
+﻿namespace PuzzleGameTestTask
 {
+	using System.Windows.Forms;
+
 	class MysteryBox : PictureBox
 	{
 		/// <summary>
 		/// Nedded position
 		/// </summary>
 		public int Index { get; set; }
+
 		/// <summary>
 		/// Current position
 		/// </summary>
 		public int ImageIndex { get; set; }
+
 		/// <summary>
 		/// Is puzzle on on nedded position
 		/// </summary>
@@ -22,6 +21,7 @@ namespace PuzzleGameTestTask
 		{
 			return (Index == ImageIndex);
 		}
+
 		/// <summary>
 		/// Change border style if a puzzle in right place
 		/// </summary>
