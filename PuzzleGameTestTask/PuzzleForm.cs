@@ -240,8 +240,6 @@
 
 			// Event for removing borders
 			buttonCheck.PerformClick();
-			numericUpDownRows.Enabled = true;
-			numericUpDownColumns.Enabled = true;
 		}
 		#endregion
 	
