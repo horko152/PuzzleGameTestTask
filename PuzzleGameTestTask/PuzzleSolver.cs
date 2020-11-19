@@ -17,16 +17,16 @@
 
             double value = GetBestCurrentVariant(listOfImages, numRow, numCol, ref possibleChoice);
 
-            if (minDifference > value)
-            {
-                bestChoice = (Bitmap[,])possibleChoice.Clone();
-				minDifference = value;
+			if (minDifference > value)
+			{
+				bestChoice = (Bitmap[,])possibleChoice.Clone();
+				//minDifference = value;
 			}
 
-            return bestChoice;
+			return bestChoice;
         }
 
-        // Method that returns the lowest difference between 
+        // Method that returns the lowest difference 
         private double GetBestCurrentVariant(List<Bitmap> listOfImages, int numRow, int numCol, ref Bitmap[,] bestChoice)
         {
             double minDifference = Int32.MaxValue;
@@ -76,16 +76,6 @@
             }
 
             return minDifference;
-        }
-
-        // Method for getting difference bettwen two colors
-        private double GetDifference(Color firstColor, Color secondColor)
-        {
-            int differenceR = Math.Abs(firstColor.R - secondColor.R);
-            int differenceG = Math.Abs(firstColor.G - secondColor.G);
-            int differenceB = Math.Abs(firstColor.B - secondColor.B);
-
-            return Math.Sqrt(differenceR * differenceR + differenceG * differenceG + differenceB * differenceB);
         }
 
         // Method for getting the best right puzzle
@@ -140,7 +130,7 @@
 
                 for (int i = 0; i < leftPuzzle.Length; i++)
                 {
-                    rightDifference += GetDifference(leftPuzzle[i], rightPuzzle[i]);
+                    rightDifference += GetColorDifference(leftPuzzle[i], rightPuzzle[i]);
                 }
 
             }
@@ -203,7 +193,7 @@
 
                 for (int i = 0; i < upPuzzle.Length; i++)
                 {
-                    bottomDifference += GetDifference(upPuzzle[i], downPuzzle[i]);
+                    bottomDifference += GetColorDifference(upPuzzle[i], downPuzzle[i]);
                 }
             }
             catch (Exception ex)
@@ -212,6 +202,16 @@
             }
 
             return bottomDifference;
+        }
+
+        // Method for getting difference bettwen two colors
+        private double GetColorDifference(Color firstColor, Color secondColor)
+        {
+            int differenceR = Math.Abs(firstColor.R - secondColor.R);
+            int differenceG = Math.Abs(firstColor.G - secondColor.G);
+            int differenceB = Math.Abs(firstColor.B - secondColor.B);
+
+            return Math.Sqrt(differenceR * differenceR + differenceG * differenceG + differenceB * differenceB);
         }
     }
 }

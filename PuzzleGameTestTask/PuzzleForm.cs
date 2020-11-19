@@ -12,7 +12,7 @@
 		/// <summary>
 		///	Variable for using PuzzleSolver methods
 		/// </summary>
-		private PuzzleSolver puzzleSolver { get; }
+		private PuzzleSolver PuzzleSolver { get; }
 
 		/// <summary>
 		/// PictureBox for main image
@@ -40,12 +40,12 @@
 		int countOfFragments = 0;
 
 		/// <summary>
-		/// 
+		/// Number of puzzle rows
 		/// </summary>
 		int numberOfRows = 0;
 
 		/// <summary>
-		/// 
+		/// Number of puzzle columns
 		/// </summary>
 		int numberOfColumns = 0;
 
@@ -64,7 +64,7 @@
 		public PuzzleForm()
 		{
 			InitializeComponent();
-			puzzleSolver = new PuzzleSolver();
+			PuzzleSolver = new PuzzleSolver();
 		}
 
 		#region Events
@@ -126,10 +126,10 @@
 			{
 				for (int j = 0; j < mysteryBoxes.Length; j++)
 				{
-					images[j].Dispose();
+					//images[j].Dispose();
 					images[j] = null;
 
-					mysteryBoxes[j].Dispose();
+					//mysteryBoxes[j].Dispose();
 					mysteryBoxes[j] = null;
 				}
 
@@ -173,6 +173,7 @@
 			}
 
 			Shuffle(ref indice);
+
 			listOfShuffledImages = new List<Bitmap>(countOfFragments);
 
 			for (int i = 0; i < countOfFragments; i++)
@@ -239,7 +240,7 @@
 		private void ButtonAutomaticAssemblyPuzzle_Click(object sender, EventArgs e)
 		{
 			// Array for puzzles with the lowest difference for each position
-			Bitmap[,] bestChoisesForPuzzle = puzzleSolver.GetBestPuzzleImage(listOfShuffledImages, numberOfRows, numberOfColumns);
+			Bitmap[,] bestChoisesForPuzzle = PuzzleSolver.GetBestPuzzleImage(listOfShuffledImages, numberOfRows, numberOfColumns);
 
 			// List for swapping puzlles above and current in a game
 			List<Bitmap> mysteryBoxesBitmaps = new List<Bitmap>(countOfFragments);
@@ -260,6 +261,7 @@
 
 			// Event for removing borders
 			buttonCheck.PerformClick();
+
 			buttonCheck.Enabled = false;
 		}
 		#endregion
